@@ -4,10 +4,10 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /backend
 
+RUN apt update && apt install -y postgresql-client
+
 COPY ./requirements.txt /backend
 
 RUN pip install -r requirements.txt
 
 COPY . /backend
-
-CMD python manage.py runserver 0.0.0.0:8000

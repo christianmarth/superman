@@ -1,6 +1,16 @@
 version: "3.7"
 
 services:
+  frontend: 
+    build:
+      context: ./frontend
+      dockerfile: ./frontendDockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - web
+    volumes:
+      - ./frontend:/frontend
   web:
     build: 
       context: ./backend
@@ -19,6 +29,7 @@ services:
       - graphql-engine
     volumes:
       - ./backend:/backend
+    command: ["./wait-for-it.sh", "python", "manage.py", "runserver", "0.0.0.0:8000"]
   db:
     image: "postgis/postgis"
     environment:
