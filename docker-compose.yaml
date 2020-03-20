@@ -2,8 +2,9 @@ version: "3.7"
 
 services:
   web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    build: 
+      context: ./backend
+      dockerfile: ./backendDockerfile
     environment:
       PGUSER: postgres
       PGPASSWORD: postgres
@@ -17,7 +18,7 @@ services:
       - es
       - graphql-engine
     volumes:
-      - .:/code
+      - ./backend:/backend
   db:
     image: "postgis/postgis"
     environment:
