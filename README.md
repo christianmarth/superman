@@ -2,15 +2,55 @@
 Halal, it's a lifestyle.
 
 
-## Run migrations
+## Getting started
+
+
+## Install docker and docker-compose
+Docker and docker-compose dependencies
+- https://docs.docker.com/install/
+- https://docs.docker.com/compose/install/
+
+
+## Build service images.
+Open a terminal and execute the following command
 ```
-docker-compose exec web python manage.py migrate
+docker-compose build
 ```
 
 
-## Create an admin user
+## Start services
 ```
-docker-compose exec web python manage.py createsuperuser
+docker-compose up
+```
+
+
+## Containers logs
+You can list logs for a specific service. For instance, for backend service logs
+```
+docker-compose logs -f web
+```
+
+Frontend service logs
+```
+docker-compose logs -f frontend
+```
+
+
+## Restart running services
+Restart web service
+```
+docker-compose restart web
+```
+
+Restart frontend service
+```
+docker-compose restart frontend
+```
+
+
+## Re-build service images
+```
+docker-compose build --force-rm --no-cache
 ```
 
 
@@ -18,18 +58,5 @@ docker-compose exec web python manage.py createsuperuser
 https://code.visualstudio.com/docs/remote/containers
 
 
-## Django GIS support
-https://docs.djangoproject.com/en/3.0/ref/contrib/gis/tutorial/
-
-
-## Docker compose setup
+## Docker-compose setup
 https://docs.docker.com/compose/startup-order/
-
-
-## Django + Elasticsearch
-https://qbox.io/blog/how-to-elasticsearch-python-django-part1
-
-
-# Info
-https://docs.google.com/document/d/1p3VgwRV1LFtChzs_c9_1bXXeOYWrMQqaxBESz1kVs8Y/edit
-https://docs.google.com/document/d/1PDczK9OcKxTkPBUkcKBENcfqrbnCZ5AmxQNffUa-jcM/edit#heading=h.p4mtt2r77bcr
