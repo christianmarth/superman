@@ -16,4 +16,6 @@ COPY . /frontend
 
 EXPOSE 3000
 
-CMD yarn dev -H 0.0.0.0
+ENV HOST 0.0.0.0
+
+CMD yarn dev

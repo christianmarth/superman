@@ -25,15 +25,18 @@
         </a>
       </div>
     </div>
+    <login />
   </div>
 </template>
 
 <script>
 import Logo from '~/components/Logo.vue'
+import Login from '~/components/Login.vue'
 
 export default {
   components: {
-    Logo
+    Logo,
+    Login
   }
 }
 </script>

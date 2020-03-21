@@ -62,7 +62,9 @@ services:
       environment:
         HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgres@db:5432/postgres
         HASURA_GRAPHQL_ENABLE_CONSOLE: "false" # set to "false" to disable console
+        HASURA_GRAPHQL_JWT_SECRET: '{"type":"RS256","jwk_url": "https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com","audience": "superman-27ee0","issuer": "https://securetoken.google.com/superman-27ee0"}'
+        HASURA_GRAPHQL_UNAUTHORIZED_ROLE: "anonymous"
         ## uncomment next line to set the admin secret key
-        # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+        HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
 volumes:
   pgdata:
