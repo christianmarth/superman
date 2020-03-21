@@ -1,20 +1,19 @@
 FROM node:lts-alpine
 
-# install simple http server for serving static content
-# RUN npm install -g http-server
-
-# make the 'app' folder the current working directory
+# make the 'frontend' folder the current working directory
 WORKDIR /frontend
-RUN apk update && apk add yarn
 
 # copy both 'package.json' and 'package-lock.json' (if available)
-COPY package*.json ./
+COPY package*.json yarn.lock ./
 
 # install project dependencies
-RUN yarn install
+RUN apk update && \
+    apk add yarn && \
+    yarn install
 
-# copy project files and folders to the current working directory (i.e. 'app' folder)
+# copy project files and folders to the current working directory (i.e. 'frontend' folder)
 COPY . /frontend
 
 EXPOSE 3000
+
 CMD yarn dev -H 0.0.0.0
