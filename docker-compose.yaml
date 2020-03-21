@@ -61,7 +61,7 @@ services:
       restart: always
       environment:
         HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgres@db:5432/postgres
-        HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+        HASURA_GRAPHQL_ENABLE_CONSOLE: "false" # set to "false" to disable console
         ## uncomment next line to set the admin secret key
         # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
 volumes:
