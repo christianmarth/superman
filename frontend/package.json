@@ -19,7 +19,6 @@
     "@nuxtjs/firebase": "^5.0.3",
     "@nuxtjs/pwa": "^3.0.0-0",
     "firebase": "^7.1.2",
-    "firebaseui": "^4.5.0",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {

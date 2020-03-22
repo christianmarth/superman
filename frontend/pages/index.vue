@@ -2,27 +2,11 @@
   <div class="container">
     <div>
       <logo />
-      <h1 class="title">
-        loka-frontend
-      </h1>
-      <h2 class="subtitle">
-        My badass Nuxt.js project
-      </h2>
+      <h1 class="title">loka-frontend</h1>
+      <h2 class="subtitle">My badass Nuxt.js project</h2>
       <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+        <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
+        <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
       </div>
     </div>
     <login />
@@ -30,15 +14,46 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import Login from '~/components/Login.vue'
+import Logo from "~/components/Logo.vue";
+import Login from "~/components/Login.vue";
 
 export default {
+  data() {
+    return {
+      merchants: {}
+    };
+  },
   components: {
     Logo,
     Login
+  },
+  mounted() {
+    this.getMerchants();
+  },
+  methods: {
+    async getMerchants() {
+      const query = `query MyQuery {
+  merchants {
+    name
   }
 }
+`;
+      const response = await this.$axios({
+        method: "post",
+        baseURL: 'http://localhost:8080',
+        url: "/v1/graphql",
+        headers: {
+          "x-hasura-role": "anonymous",
+          "content-type": "application/json"
+        },
+        data: {
+          query: query
+        }
+      });
+      this.merchants = response.data.data.merchants;
+    }
+  }
+};
 </script>
 
 <style>
@@ -57,8 +72,8 @@ export default {
 }
 
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 100px;
