@@ -58,8 +58,8 @@ docker-compose restart frontend
 
 ## Migrations
 - Run these from the root of the project:
-    - Attach to the Hasura Console: `hasura console` 
-    - Apply db migrations: `hasura migrate apply`
+    - Attach to the Hasura Console: `hasura console --admin-secret myadminsecretkey` 
+    - Apply db migrations: `hasura migrate apply --admin-secret myadminsecretkey`
     
 [Additional Docs](https://hasura.io/docs/1.0/graphql/manual/migrations/index.html)
 
