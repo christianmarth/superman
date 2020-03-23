@@ -52,7 +52,7 @@
                   />
                 </svg>
               </button>
-              <div>
+              <div class="relative">
                 <div>
                   <button
                     @click="mobileMenuToggle = !mobileMenuToggle"
