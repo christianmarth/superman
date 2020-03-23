@@ -1,30 +1,32 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">loka-frontend</h1>
-      <h2 class="subtitle">My badass Nuxt.js project</h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
-        <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
+  <div>
+    <header class="bg-white shadow-sm">
+      <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+        <h2 class="text-lg leading-6 font-semibold text-gray-900">Dashboard</h2>
       </div>
-    </div>
-    <login />
+    </header>
+    <main>
+      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <!-- Replace with your content -->
+        <div class="px-4 py-4 sm:px-0">
+          <div class="border-4 border-dashed border-gray-200 rounded-lg h-96"></div>
+        </div>
+        <!-- /End replace -->
+      </div>
+    </main>
   </div>
 </template>
 
 <script>
-import Logo from "~/components/Logo.vue";
 import Login from "~/components/Login.vue";
 
 export default {
   data() {
     return {
-      merchants: {}
+      merchants: {},
     };
   },
   components: {
-    Logo,
     Login
   },
   mounted() {
@@ -40,7 +42,7 @@ export default {
 `;
       const response = await this.$axios({
         method: "post",
-        baseURL: 'http://localhost:8080',
+        baseURL: "http://localhost:8080",
         url: "/v1/graphql",
         headers: {
           "x-hasura-role": "anonymous",
@@ -55,41 +57,3 @@ export default {
   }
 };
 </script>
-
-<style>
-/* Sample `apply` at-rules with Tailwind CSS
-.container {
-  @apply min-h-screen flex justify-center items-center text-center mx-auto;
-}
-*/
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
