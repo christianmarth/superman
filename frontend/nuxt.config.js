@@ -71,9 +71,9 @@ export default {
     vuex: {
       namespace: "storage"
     },
-    cookie: {
-      prefix: 'loka-'
-    },
+    // This causes a 431 error if you drop too much stuff into cookies
+    // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/431
+    cookie: false,
     localStorage: {
       prefix: 'loka-'
     },
