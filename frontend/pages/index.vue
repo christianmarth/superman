@@ -18,16 +18,11 @@
 </template>
 
 <script>
-import Login from "~/components/Login.vue";
-
 export default {
   data() {
     return {
       merchants: {},
     };
-  },
-  components: {
-    Login
   },
   mounted() {
     this.getMerchants();
