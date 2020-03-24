@@ -17,9 +17,7 @@
                     class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out"
                   >
                     <div class="px-4 py-4 flex items-center sm:px-6">
-                      <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
-                        Google
-                      </div>
+                      <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">Google</div>
                       <div class="ml-5 flex-shrink-0">
                         <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                           <path
@@ -38,9 +36,9 @@
                     class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out"
                   >
                     <div class="px-4 py-4 flex items-center sm:px-6">
-                      <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
-                        Facebook
-                      </div>
+                      <div
+                        class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between"
+                      >Facebook</div>
                       <div class="ml-5 flex-shrink-0">
                         <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                           <path
@@ -59,9 +57,7 @@
                     class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out"
                   >
                     <div class="px-4 py-4 flex items-center sm:px-6">
-                      <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
-                        Twitter
-                      </div>
+                      <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">Twitter</div>
                       <div class="ml-5 flex-shrink-0">
                         <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                           <path
@@ -74,15 +70,13 @@
                     </div>
                   </a>
                 </li>
-<li class="border-t border-gray-200">
+                <li class="border-t border-gray-200">
                   <a
                     href="#"
                     class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out"
                   >
                     <div class="px-4 py-4 flex items-center sm:px-6">
-                      <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
-                        Apple
-                      </div>
+                      <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">Apple</div>
                       <div class="ml-5 flex-shrink-0">
                         <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                           <path
@@ -106,22 +100,32 @@
 
 <script>
 export default {
+  mounted() {
+    this.$fireAuth
+      .getRedirectResult()
+      .then((result) => {
+        console.log(JSON.parse(JSON.stringify(result)))
+        // Firebase auth response object, additional properties include:
+        // result = {user: {…}, credential: {…}, additionalUserInfo: {…}, operationType: "signIn"}
+        const user = JSON.parse(JSON.stringify(result.user))
+        
+        // Store everything on the user object for convenience.
+        Object.keys(user).map((key) => {
+          console.log(key)
+          this.$storage.setUniversal(key, user[key])
+        })
+      })
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        var email = error.email;
+        var credential = error.credential;
+      });
+  },
   methods: {
     loginWithGoogle() {
       const provider = new this.$fireAuthObj.GoogleAuthProvider();
-      this.$fireAuth
-        .signInWithRedirect(provider)
-        .then(function(result) {
-          var token = result.credential.accessToken;
-          var user = result.user;
-          console.log(user);
-        })
-        .catch(function(error) {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          var email = error.email;
-          var credential = error.credential;
-        });
+      this.$fireAuth.signInWithRedirect(provider);
     }
   }
 };
