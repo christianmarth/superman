@@ -103,17 +103,21 @@ export default {
   mounted() {
     this.$fireAuth
       .getRedirectResult()
-      .then((result) => {
-        console.log(JSON.parse(JSON.stringify(result)))
+      .then((results) => {
         // Firebase auth response object, additional properties include:
         // result = {user: {…}, credential: {…}, additionalUserInfo: {…}, operationType: "signIn"}
-        const user = JSON.parse(JSON.stringify(result.user))
-        
+        results = JSON.parse(JSON.stringify(results))
         // Store everything on the user object for convenience.
-        Object.keys(user).map((key) => {
-          console.log(key)
-          this.$storage.setUniversal(key, user[key])
+        Object.keys(results.user).map((key) => {
+          console.log(key, results.user[key])
+          this.$storage.setUniversal(key, results.user[key])
         })
+
+        // Store idToken - prefixing the key with an underscore causes universal storage
+        // to only store the data in cookies/localStorage - not vuex 
+        // (apparently this is better for sensitive stuff)
+        this.$storage.setUniversal("_oauthIdToken", results.credential.oauthIdToken)
+        this.$storage.setUniversal("_oauthAccessToken", results.credential.oauthAccessToken)
       })
       .catch((error) => {
         var errorCode = error.code;
