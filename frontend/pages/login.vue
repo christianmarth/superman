@@ -103,23 +103,27 @@ export default {
   mounted() {
     this.$fireAuth
       .getRedirectResult()
-      .then((results) => {
+      .then(results => {
         // Firebase auth response object, additional properties include:
         // result = {user: {…}, credential: {…}, additionalUserInfo: {…}, operationType: "signIn"}
-        results = JSON.parse(JSON.stringify(results))
+        results = JSON.parse(JSON.stringify(results));
+        console.log(results);
         // Store everything on the user object for convenience.
-        Object.keys(results.user).map((key) => {
-          console.log(key, results.user[key])
-          this.$storage.setUniversal(key, results.user[key])
-        })
+        Object.keys(results.user).map(key => {
+          console.log(key, results.user[key]);
+          this.$storage.setUniversal(key, results.user[key]);
+        });
 
-        // Store idToken - prefixing the key with an underscore causes universal storage
-        // to only store the data in cookies/localStorage - not vuex 
+        // Store accessToken - prefixing the key with an underscore causes universal storage
+        // to only store the data in cookies/localStorage - not vuex
         // (apparently this is better for sensitive stuff)
-        this.$storage.setUniversal("_oauthIdToken", results.credential.oauthIdToken)
-        this.$storage.setUniversal("_oauthAccessToken", results.credential.oauthAccessToken)
+        this.$storage.setUniversal(
+          "_accessToken",
+          results.user.stsTokenManager.accessToken
+        );
+        this.createUser();
       })
-      .catch((error) => {
+      .catch(error => {
         var errorCode = error.code;
         var errorMessage = error.message;
         var email = error.email;
@@ -130,6 +134,34 @@ export default {
     loginWithGoogle() {
       const provider = new this.$fireAuthObj.GoogleAuthProvider();
       this.$fireAuth.signInWithRedirect(provider);
+    },
+    async createUser(){
+      //TODO move this to a store/module
+
+      const uid = this.$storage.getUniversal('uid')
+      const email = this.$storage.getUniversal('email')
+      const name = this.$storage.getUniversal('displayName')
+      const photoUrl = this.$storage.getUniversal('photoURL')
+
+      const query = `mutation createuser {
+  insert_users(objects: {uid: "${uid}", photo_url: "${photoUrl}", name: "${name}", email: "${email}"}) {
+    affected_rows
+  }
+}
+`;
+      const response = await this.$axios({
+        method: "post",
+        baseURL: "http://localhost:8080",
+        url: "/v1/graphql",
+        headers: {
+          "Authorization": `Bearer ${this.$storage.getUniversal('_accessToken')}`,
+          "content-type": "application/json"
+        },
+        data: {
+          query: query
+        }
+      });
+      console.log(response);
     }
   }
 };
