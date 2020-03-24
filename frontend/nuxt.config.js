@@ -63,9 +63,22 @@ export default {
         services: {
           auth: true // Just as example. Can be any other service.
         }
-      }
-    ]
+      },
+    ],
+    '@nuxtjs/universal-storage',
   ],
+  storage: {
+    vuex: {
+      namespace: "storage"
+    },
+    cookie: {
+      prefix: 'loka-'
+    },
+    localStorage: {
+      prefix: 'loka-'
+    },
+    ignoreExceptions: false,
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
