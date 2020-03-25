@@ -1,0 +1,12 @@
+mutation InsertUser(
+  $uid: String
+  $photo_url: String
+  $name: String
+  $email: String
+) {
+  insert_users(
+    objects: { uid: $uid, photo_url: $photo_url, name: $name, email: $email }
+  ) {
+    affected_rows
+  }
+}

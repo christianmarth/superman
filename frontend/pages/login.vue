@@ -99,6 +99,7 @@
 </template>
 
 <script>
+import InsertUser from "~/services/InsertUser";
 export default {
   mounted() {
     this.$fireAuth
@@ -107,10 +108,8 @@ export default {
         // Firebase auth response object, additional properties include:
         // result = {user: {…}, credential: {…}, additionalUserInfo: {…}, operationType: "signIn"}
         results = JSON.parse(JSON.stringify(results));
-        console.log(results);
         // Store everything on the user object for convenience.
         Object.keys(results.user).map(key => {
-          console.log(key, results.user[key]);
           this.$storage.setUniversal(key, results.user[key]);
         });
 
@@ -121,7 +120,8 @@ export default {
           "_accessToken",
           results.user.stsTokenManager.accessToken
         );
-        this.createUser();
+
+        this.insertUser();
       })
       .catch(error => {
         var errorCode = error.code;
@@ -135,33 +135,20 @@ export default {
       const provider = new this.$fireAuthObj.GoogleAuthProvider();
       this.$fireAuth.signInWithRedirect(provider);
     },
-    async createUser(){
-      //TODO move this to a store/module
-
-      const uid = this.$storage.getUniversal('uid')
-      const email = this.$storage.getUniversal('email')
-      const name = this.$storage.getUniversal('displayName')
-      const photoUrl = this.$storage.getUniversal('photoURL')
-
-      const query = `mutation createuser {
-  insert_users(objects: {uid: "${uid}", photo_url: "${photoUrl}", name: "${name}", email: "${email}"}) {
-    affected_rows
-  }
-}
-`;
-      const response = await this.$axios({
-        method: "post",
-        baseURL: "http://localhost:8080",
-        url: "/v1/graphql",
-        headers: {
-          "Authorization": `Bearer ${this.$storage.getUniversal('_accessToken')}`,
-          "content-type": "application/json"
-        },
-        data: {
-          query: query
-        }
-      });
-      console.log(response);
+    insertUser() {
+      const idToken = this.$storage.getUniversal("_accessToken");
+      const uid = this.$storage.getUniversal("uid");
+      const displayName = this.$storage.getUniversal("displayName");
+      const email = this.$storage.getUniversal("email");
+      const photoURL = this.$storage.getUniversal("photoURL");
+      const service = new InsertUser(
+        idToken,
+        uid,
+        displayName,
+        email,
+        photoURL
+      );
+      service.process();
     }
   }
 };
