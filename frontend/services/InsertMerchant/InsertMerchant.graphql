@@ -1,0 +1,9 @@
+mutation InsertUser(
+  $name: String
+) {
+  insert_merchants(
+    objects: { name: $name }
+  ) {
+    affected_rows
+  }
+}

@@ -12,7 +12,11 @@ export default {
         },
         {
           name: "Login",
-          path: "login"
+          path: "/login"
+        },
+        {
+          name: "Create Merchant",
+          path: "/merchant/create"
         }
       ],
       mobileMenuToggle: false

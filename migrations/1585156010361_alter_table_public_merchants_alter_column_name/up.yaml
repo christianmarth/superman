@@ -1,0 +1,6 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."merchants" ADD CONSTRAINT "merchants_name_key" UNIQUE
+      ("name");
+  type: run_sql
