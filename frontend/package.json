@@ -20,6 +20,8 @@
     "@nuxtjs/pwa": "^3.0.0-0",
     "@nuxtjs/universal-storage": "^0.5.4",
     "firebase": "^7.1.2",
+    "mapbox-gl": "^1.9.0",
+    "mapbox-gl-vue": "^2.0.4",
     "nuxt": "^2.0.0",
     "vue-clickaway": "^2.2.2"
   },

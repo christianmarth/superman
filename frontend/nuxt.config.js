@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 require('dotenv').config()
 
 export default {
@@ -58,7 +59,7 @@ export default {
           storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
           messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
           appId: process.env.FIREBASE_APP_ID,
-          measurementId: process.env.FIREBASE_MEASUREMENT_ID 
+          measurementId: process.env.FIREBASE_MEASUREMENT_ID
         },
         services: {
           auth: true // Just as example. Can be any other service.
@@ -92,8 +93,11 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend(config, ctx ) {
+    extend(config, ctx) {
       config.module.rules.push({ test: /\.graphql?$/, loader: 'webpack-graphql-loader' })
+      config.plugins.push(new webpack.ProvidePlugin({
+        mapboxgl: 'mapbox-gl'
+      }))
     }
   }
 }
