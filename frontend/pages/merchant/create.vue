@@ -37,6 +37,18 @@
                     </div>
                   </div>
 
+                  <div class="mt-6 sm:mt-5 sm:border-t sm:border-gray-200 sm:pt-5">
+                    <label
+                      for="about"
+                      class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
+                    >Where is your business located?</label>
+
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                      <div class="max-w-4xl mx-auto">
+                        <Map @searchResult="handleMapSearchResult" @mapClick="handleMapClick" />
+                      </div>
+                    </div>
+                  </div>
                   <div
                     class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5"
                   >
@@ -437,20 +449,35 @@
 </template>
 
 <script>
-import InsertMerchant from "~/services/InsertMerchant"
+import Map from "~/components/Map";
+import InsertMerchant from "~/services/InsertMerchant";
 
 export default {
-  data(){
+  components: {
+    Map
+  },
+  data() {
     return {
-      name: ""
-    }
+      name: "",
+      location: ""
+    };
   },
   methods: {
-    handleForm(e){
+    handleForm(e) {
       e.preventDefault();
       const idToken = this.$storage.getUniversal("_accessToken");
-      const service = new InsertMerchant(idToken, this.name)
-      service.process()
+      const service = new InsertMerchant(idToken, this.name, this.location);
+      service.process();
+    },
+    handleMapSearchResult(event) {
+      // event data properties documentation:
+      // https://docs.mapbox.com/api/search/#geocoding-response-object
+      this.location = `${event.center[0]},${event.center[1]}`
+    },
+    handleMapClick(event) {
+      // click event properties documentation:
+      // https://docs.mapbox.com/mapbox-gl-js/api/#mapmouseevent
+      this.location = `${event.lngLat.lng}, ${event.lngLat.lat}`
     }
   }
 };

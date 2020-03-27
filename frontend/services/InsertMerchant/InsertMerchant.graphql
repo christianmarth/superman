@@ -1,9 +1,6 @@
-mutation InsertUser(
-  $name: String
-) {
-  insert_merchants(
-    objects: { name: $name }
-  ) {
-    affected_rows
+mutation InsertUser($object: merchants_insert_input!) {
+  insert_merchants_one(object: $object) {
+    name
+    location
   }
 }
