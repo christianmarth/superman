@@ -1,7 +1,10 @@
 // tailwind.config.js
 const defaultTheme = require('tailwindcss/defaultTheme')
-    
+
 module.exports = {
+  variants: {
+    borderStyle: ['responsive', 'hover', 'focus'],
+  },
   theme: {
     extend: {
       fontFamily: {
