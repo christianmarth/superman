@@ -31,6 +31,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/UserListener', mode: 'client' }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -62,8 +63,11 @@ export default {
           measurementId: process.env.FIREBASE_MEASUREMENT_ID
         },
         services: {
-          auth: true // Just as example. Can be any other service.
-        }
+          auth: true,
+          storage: true,
+          analytics: true,
+          performance: true
+        },
       },
     ],
     '@nuxtjs/universal-storage',
@@ -74,7 +78,9 @@ export default {
     },
     // This causes a 431 error if you drop too much stuff into cookies
     // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/431
-    cookie: false,
+    cookie: {
+      prefix: 'loka-'
+    },
     localStorage: {
       prefix: 'loka-'
     },

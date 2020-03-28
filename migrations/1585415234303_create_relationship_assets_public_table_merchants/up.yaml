@@ -1,0 +1,14 @@
+- args:
+    name: assets
+    table:
+      name: merchants
+      schema: public
+    using:
+      manual_configuration:
+        column_mapping:
+          id: entity_id
+          user_id: user_id
+        remote_table:
+          name: assets
+          schema: public
+  type: create_array_relationship

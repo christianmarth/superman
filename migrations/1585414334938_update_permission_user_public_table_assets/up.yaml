@@ -1,0 +1,15 @@
+- args:
+    permission:
+      allow_aggregations: false
+      columns:
+      - entity_type
+      - name
+      - url
+      computed_fields: []
+      filter: {}
+      limit: null
+    role: user
+    table:
+      name: assets
+      schema: public
+  type: create_select_permission

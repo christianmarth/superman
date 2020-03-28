@@ -1,0 +1,15 @@
+- args:
+    permission:
+      allow_upsert: true
+      check: {}
+      columns:
+      - url
+      localPresets:
+      - key: ""
+        value: ""
+      set: {}
+    role: anonymous
+    table:
+      name: assets
+      schema: public
+  type: create_insert_permission

@@ -1,0 +1,18 @@
+- args:
+    role: anonymous
+    table:
+      name: assets
+      schema: public
+  type: drop_select_permission
+- args:
+    permission:
+      allow_aggregations: true
+      columns:
+      - url
+      computed_fields: []
+      filter: {}
+    role: anonymous
+    table:
+      name: assets
+      schema: public
+  type: create_select_permission

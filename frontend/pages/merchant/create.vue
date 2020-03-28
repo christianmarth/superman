@@ -45,8 +45,20 @@
 
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                       <div class="max-w-4xl mx-auto">
-                        <Map @searchResult="handleMapSearchResult" @mapClick="handleMapClick" />
+                        <client-only>
+                          <Map @searchResult="handleMapSearchResult" @mapClick="handleMapClick" />
+                        </client-only>
                       </div>
+                    </div>
+                  </div>
+                  <div class="mt-6 sm:mt-5 sm:border-t sm:border-gray-200 sm:pt-5">
+                    <label
+                      for="about"
+                      class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
+                    >Upload images of your business</label>
+                    <ImageUploader @upload-image-loaded="handleImageUpload" />
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                      <div class="max-w-4xl mx-auto"></div>
                     </div>
                   </div>
                   <div
@@ -450,34 +462,83 @@
 
 <script>
 import Map from "~/components/Map";
+import ImageUploader from "~/components/ImageUploader";
 import InsertMerchant from "~/services/InsertMerchant";
 
 export default {
   components: {
-    Map
+    Map,
+    ImageUploader
   },
   data() {
     return {
       name: "",
-      location: ""
+      location: "",
+      images: []
     };
   },
+  computed: {
+    underscoreDelimitedName() {
+      return this.name
+        .toLowerCase()
+        .replace(/[.,\/#!$%\'^&\*;:{}=\-_`~()]/g, "")
+        .replace(" ", "_");
+    },
+    userId() {
+      return this.$storage.getUniversal("user").uid;
+    },
+    merchantProfileBucketPath() {
+      return `${this.userId}/merchants/${this.underscoreDelimitedName}`;
+    }
+  },
   methods: {
-    handleForm(e) {
+    async handleForm(e) {
       e.preventDefault();
-      const idToken = this.$storage.getUniversal("_accessToken");
-      const service = new InsertMerchant(idToken, this.name, this.location);
+      const uploadSnapshots = await this.uploadImagesToFirebase();
+      const imageData = uploadSnapshots.map(snapshot => {
+        return {
+          name: snapshot.metadata.name,
+          url: snapshot.metadata.fullPath,
+          entity_type: "merchant"
+        };
+      });
+
+      const idToken = this.$storage.getUniversal("accessToken");
+      const service = new InsertMerchant(
+        idToken,
+        this.name,
+        this.location,
+        imageData
+      );
       service.process();
+    },
+    async uploadImagesToFirebase() {
+      const ref = this.$fireStorage.ref();
+      // place all uploaded images in a subdirectory with path like this:
+      // 2zAOj9zJGZNVD2ykHeQtiJsgzCL2/merchants/my_store/image.jpg
+      // this is a reasonable approach since any user could create
+      // many merchant profiles
+      return Promise.all(
+        this.images.map(image => {
+          const namedRef = ref.child(
+            `${this.merchantProfileBucketPath}/${image.name}`
+          );
+          return namedRef.put(image.file);
+        })
+      );
     },
     handleMapSearchResult(event) {
       // event data properties documentation:
       // https://docs.mapbox.com/api/search/#geocoding-response-object
-      this.location = `${event.center[0]},${event.center[1]}`
+      this.location = `${event.center[0]},${event.center[1]}`;
     },
     handleMapClick(event) {
       // click event properties documentation:
       // https://docs.mapbox.com/mapbox-gl-js/api/#mapmouseevent
-      this.location = `${event.lngLat.lng}, ${event.lngLat.lat}`
+      this.location = `${event.lngLat.lng}, ${event.lngLat.lat}`;
+    },
+    handleImageUpload(event) {
+      this.images.push(event);
     }
   }
 };

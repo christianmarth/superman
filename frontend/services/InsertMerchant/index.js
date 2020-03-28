@@ -4,10 +4,11 @@ import query from './InsertMerchant.graphql'
 export default class InsertMerchant {
     constructor(
         idToken,
-        name, location) {
+        name, location, images) {
         this.idToken = idToken
         this.name = name
         this.location = location
+        this.images = images
     }
 
     async process() {
@@ -24,7 +25,10 @@ export default class InsertMerchant {
                 variables: {
                     object: {
                         name: this.name,
-                        location: this.location
+                        location: this.location,
+                        assets: {
+                            data: this.images
+                        }
                     }
                 }
             }

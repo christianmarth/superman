@@ -107,21 +107,16 @@ export default {
       .then(results => {
         // Firebase auth response object, additional properties include:
         // result = {user: {…}, credential: {…}, additionalUserInfo: {…}, operationType: "signIn"}
-        results = JSON.parse(JSON.stringify(results));
+        const user = JSON.parse(JSON.stringify(results.user));
         // Store everything on the user object for convenience.
-        Object.keys(results.user).map(key => {
-          this.$storage.setUniversal(key, results.user[key]);
-        });
+        this.$storage.setUniversal("loginResult", results.user);
 
-        // Store accessToken - prefixing the key with an underscore causes universal storage
-        // to only store the data in cookies/localStorage - not vuex
-        // (apparently this is better for sensitive stuff)
-        this.$storage.setUniversal(
-          "_accessToken",
-          results.user.stsTokenManager.accessToken
-        );
-
-        this.insertUser();
+        const accessToken = results.user.stsTokenManager.accessToken;
+        const uid = user.uid;
+        const displayName = user.displayName;
+        const email = user.email;
+        const photoURL = user.photoURL;
+        this.insertUser(accessToken, uid, displayName, email, photoURL);
       })
       .catch(error => {
         var errorCode = error.code;
@@ -135,12 +130,7 @@ export default {
       const provider = new this.$fireAuthObj.GoogleAuthProvider();
       this.$fireAuth.signInWithRedirect(provider);
     },
-    insertUser() {
-      const idToken = this.$storage.getUniversal("_accessToken");
-      const uid = this.$storage.getUniversal("uid");
-      const displayName = this.$storage.getUniversal("displayName");
-      const email = this.$storage.getUniversal("email");
-      const photoURL = this.$storage.getUniversal("photoURL");
+    insertUser(idToken, uid, displayName, email, photoURL) {
       const service = new InsertUser(
         idToken,
         uid,
