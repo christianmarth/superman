@@ -1,0 +1,11 @@
+query SelectUser($uid: String!) {
+  users_by_pk(uid: $uid) {
+    name
+    photo_url
+    email
+    merchants {
+      id
+      name
+    }
+  }
+}
