@@ -1,20 +1,25 @@
 <template>
-  <div>{{ JSON.stringify(this.merchant) }}</div>
+  <div>
+    <pre>
+      {{ JSON.stringify(this.merchant, null, 4) }}
+    </pre>
+  </div>
 </template>
 
 <script>
 import SelectMerchant from "~/services/SelectMerchant";
+
 export default {
   async middleware(context) {
     let accessToken;
     const { app, params } = context;
     if (process.server) {
       const { req, res, beforeNuxtRender } = context;
-      accessToken = req.cookies['loka-accessToken']
-    }else{
-        accessToken = app.$storage.getUniversal('accessToken');
+      accessToken = req.cookies["loka-accessToken"];
+    } else {
+      accessToken = app.$storage.getUniversal("accessToken");
     }
-    
+
     const id = params.id;
     const service = new SelectMerchant(accessToken, id);
     const response = await service.process();
