@@ -9,7 +9,14 @@
       <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <!-- Replace with your content -->
         <div class="px-4 py-4 sm:px-0">
-          <div class="border-4 border-dashed border-gray-200 rounded-lg h-96"></div>
+          <div class="border-4 border-dashed border-gray-200 rounded-lg">
+            <div v-for="merchant in merchants" :key="merchant.id">
+              <pre> {{ JSON.stringify(merchant, null, 4) }} </pre>
+              <nuxt-link :to="{ name: 'merchant-id', params: { id: merchant.id }}">
+                Merchant Profile
+              </nuxt-link>
+            </div>
+          </div>
         </div>
         <!-- /End replace -->
       </div>
@@ -18,36 +25,28 @@
 </template>
 
 <script>
+import SelectAllMerchant from "~/services/SelectAllMerchants";
+
 export default {
-  data() {
-    return {
-      merchants: {},
-    };
+  async asyncData(context) {
+    let accessToken;
+    const { app, params } = context;
+    if (process.server) {
+      const { req, res, beforeNuxtRender } = context;
+      accessToken = req.cookies["loka-accessToken"];
+    } else {
+      accessToken = app.$storage.getUniversal("accessToken");
+    }
+
+    const service = new SelectAllMerchant(accessToken);
+    const response = await service.process();
+    return { merchants: response.data.data.merchants }
   },
-  mounted() {
-    this.getMerchants();
-  },
-  methods: {
-    async getMerchants() {
-      const query = `query MyQuery {
-  merchants {
-    name
-  }
-}
-`;
-      const response = await this.$axios({
-        method: "post",
-        baseURL: "http://localhost:8080",
-        url: "/v1/graphql",
-        headers: {
-          "x-hasura-role": "anonymous",
-          "content-type": "application/json"
-        },
-        data: {
-          query: query
-        }
-      });
-      this.merchants = response.data.data.merchants;
+  computed: {
+    data(){
+      return {
+        merchants: []
+      }
     }
   }
 };

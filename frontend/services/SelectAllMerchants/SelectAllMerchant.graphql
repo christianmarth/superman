@@ -1,0 +1,9 @@
+query SelectAllMerchants {
+  merchants {
+    assets(limit: 1) {
+      url
+    }
+    name
+    id
+  }
+}
