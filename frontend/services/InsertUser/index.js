@@ -17,7 +17,7 @@ export default class InsertUser {
     async process() {
         const response = await axios({
             method: "post",
-            baseURL: process.env.API_URL,
+            baseURL: process.server ? process.env.API_URL_SSR : process.env.API_URL,
             url: process.env.API_PATH,
             headers: {
                 "Authorization": `Bearer ${this.idToken}`,
