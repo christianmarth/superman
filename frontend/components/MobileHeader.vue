@@ -62,10 +62,10 @@
             </div>
           </div>
           <div class="mt-3 px-2">
-            <a
-              href="#"
+            <nuxt-link
+              :to="{name: 'user-profile'}"
               class="block px-3 py-2 rounded-md text-base font-medium text-indigo-300 hover:text-white hover:bg-indigo-600 focus:outline-none focus:text-white focus:bg-indigo-600"
-            >Your Profile</a>
+            >Your Profile</nuxt-link>
             <a
               href="#"
               class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-indigo-300 hover:text-white hover:bg-indigo-600 focus:outline-none focus:text-white focus:bg-indigo-600"
