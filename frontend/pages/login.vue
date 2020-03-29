@@ -108,9 +108,6 @@ export default {
         // Firebase auth response object, additional properties include:
         // result = {user: {…}, credential: {…}, additionalUserInfo: {…}, operationType: "signIn"}
         const user = JSON.parse(JSON.stringify(results.user));
-        // Store everything on the user object for convenience.
-        this.$storage.setUniversal("loginResult", results.user);
-
         const accessToken = results.user.stsTokenManager.accessToken;
         const uid = user.uid;
         const displayName = user.displayName;
