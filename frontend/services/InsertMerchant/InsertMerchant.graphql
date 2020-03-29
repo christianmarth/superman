@@ -1,10 +1,5 @@
 mutation InsertUser($object: merchants_insert_input!) {
   insert_merchants_one(object: $object) {
-    name
-    assets_aggregate {
-      aggregate {
-        count
-      }
-    }
+    id
   }
 }

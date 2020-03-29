@@ -510,7 +510,9 @@ export default {
         this.location,
         imageData
       );
-      service.process();
+      const response = await service.process();
+      const merchant_id = response.data.data.insert_merchants_one.id;
+      this.$router.push({name: "merchant-id", params: {id: merchant_id}})
     },
     async uploadImagesToFirebase() {
       const ref = this.$fireStorage.ref();

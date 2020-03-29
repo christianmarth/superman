@@ -69,6 +69,7 @@ export default {
   },
   data() {
     return {
+      mapboxInstance: mapboxgl,
       accessToken: process.env.MAPBOX_ACCESS_TOKEN, // your access token. Needed if you are using Mapbox maps
       currentMarker: null
     };
@@ -79,7 +80,7 @@ export default {
         if (process.client) {
           const geocoder = new MapboxGeocoder({
             accessToken: this.accessToken,
-            mapboxgl: mapboxgl
+            mapboxgl: this.mapboxInstance
           });
           geocoder.on("result", this.handleGeocoder);
           document.getElementById("geocoder").appendChild(geocoder.onAdd(map));
@@ -92,7 +93,7 @@ export default {
       // https://docs.mapbox.com/mapbox-gl-js/api/#mapmouseevent
 
       if (this.currentMarker) this.currentMarker.remove();
-      this.currentMarker = new mapboxgl.Marker().setLngLat(mapEvent.lngLat);
+      this.currentMarker = new this.mapboxInstance.Marker().setLngLat(mapEvent.lngLat);
       this.currentMarker.addTo(map);
       this.$emit("mapClick", mapEvent);
     },
@@ -101,6 +102,9 @@ export default {
       // https://docs.mapbox.com/api/search/#geocoding-response-object
       this.$emit("searchResult", event.result);
     }
+  },
+  destroyed(){
+
   }
 };
 </script>

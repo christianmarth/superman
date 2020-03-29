@@ -12,7 +12,7 @@ export default class InsertMerchant {
     }
 
     async process() {
-        const response = await axios({
+        return axios({
             method: "post",
             baseURL: process.env.API_URL,
             url: process.env.API_PATH,
@@ -33,6 +33,5 @@ export default class InsertMerchant {
                 }
             }
         });
-        console.log(response);
     }
 }
