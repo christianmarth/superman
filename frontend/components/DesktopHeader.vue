@@ -40,7 +40,8 @@
 
           <!-- Profile Button -->
 
-          <div class="relative" v-on-clickaway="away">
+          <!-- `loggedIn` computed property set on the ./HeaderMixin -->
+          <div v-if="loggedIn" class="relative" v-on-clickaway="away">
             <!-- 
               Relatively positioned so the absolutely positioned floating menu has something 
               (other than the window) to anchor to.

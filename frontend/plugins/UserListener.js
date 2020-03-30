@@ -1,10 +1,10 @@
 // This implementation is recommended here:
 // https://firebase.google.com/docs/auth/web/manage-users?authuser=1
 
-export default ({ app }, inject) => {
+export default ({ app }) => {
     app.$storage.syncUniversal("accessToken")
 
-    app.$fireAuth.onAuthStateChanged(function (user) {
+    app.$fireAuth.onAuthStateChanged(user => {
         if (user) {
             user = JSON.parse(JSON.stringify(user))
             app.$storage.setState("user", user)
@@ -18,7 +18,7 @@ export default ({ app }, inject) => {
                 "accessToken",
                 user.stsTokenManager.accessToken
             );
-        } else {
+        } else {    
             // No user is signed in.
             app.$storage.setState("loggedIn", false)
             app.$storage.setLocalStorage("loggedIn", false)

@@ -45,7 +45,8 @@
             class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-indigo-200 hover:text-white hover:bg-indigo-600 focus:outline-none focus:text-white focus:bg-indigo-600"
           >{{link.name}}</nuxt-link>
         </div>
-        <div class="pt-4 pb-3 border-t border-gray-700">
+        <!-- `loggedIn` computed property set on the ./HeaderMixin -->
+        <div v-if="loggedIn" class="pt-4 pb-3 border-t border-gray-700">
           <div class="flex items-center px-5">
             <div class="flex-shrink-0">
               <img

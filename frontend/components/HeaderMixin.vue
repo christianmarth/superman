@@ -22,10 +22,15 @@ export default {
       mobileMenuToggle: false
     };
   },
+  computed: {
+    loggedIn(){
+      return this.$storage.getUniversal("loggedIn")
+    }
+  },
   methods: {
     away() {
       this.mobileMenuToggle = false;
-    }
+    },
   }
 };
 </script>
