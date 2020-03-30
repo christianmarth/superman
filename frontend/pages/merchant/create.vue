@@ -23,15 +23,15 @@
                     class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5"
                   >
                     <label
-                      for="username"
                       class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
+                      for="username"
                     >Merchant/Service/Restaurant Name</label>
                     <div class="mt-1 sm:mt-0 sm:col-span-2">
                       <div class="max-w-lg flex rounded-md shadow-sm">
                         <input
-                          v-model="name"
-                          id="username"
                           class="flex-1 form-input block w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                          id="username"
+                          v-model="name"
                         />
                       </div>
                     </div>
@@ -39,53 +39,36 @@
 
                   <div class="mt-6 sm:mt-5 sm:border-t sm:border-gray-200 sm:pt-5">
                     <label
-                      for="about"
                       class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
+                      for="about"
                     >Where is your business located?</label>
 
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                       <div class="max-w-4xl mx-auto">
                         <client-only>
-                          <Map @searchResult="handleMapSearchResult" @mapClick="handleMapClick" />
+<!--                          <Map @mapClick="handleMapClick" @searchResult="handleMapSearchResult"/>-->
                         </client-only>
                       </div>
                     </div>
                   </div>
                   <div class="mt-6 sm:mt-5 sm:border-t sm:border-gray-200 sm:pt-5">
                     <label
-                      for="about"
                       class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
+                      for="about"
                     >Upload images of your business</label>
-                    <ImageUploader @upload-image-loaded="handleImageUpload" />
+                    <ImageUploader @upload-image-loaded="handleImageUpload"/>
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                       <div class="max-w-4xl mx-auto"></div>
                     </div>
                   </div>
-                  <div
-                    class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5"
-                  >
-                    <label
-                      for="about"
-                      class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
-                    >About</label>
-                    <div class="mt-1 sm:mt-0 sm:col-span-2">
-                      <div class="max-w-lg flex rounded-md shadow-sm">
-                        <textarea
-                          id="about"
-                          rows="3"
-                          class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                        ></textarea>
-                      </div>
-                      <p class="mt-2 text-sm text-gray-500">Write a few sentences about yourself.</p>
-                    </div>
-                  </div>
-
+                  <BaseTextArea
+                    v-model="description"  />
                   <div
                     class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-center sm:border-t sm:border-gray-200 sm:pt-5"
                   >
                     <label
-                      for="photo"
                       class="block text-sm leading-5 font-medium text-gray-700"
+                      for="photo"
                     >Photo</label>
                     <div class="mt-2 sm:mt-0 sm:col-span-2">
                       <div class="flex items-center">
@@ -102,8 +85,8 @@
                         </span>
                         <span class="ml-5 rounded-md shadow-sm">
                           <button
-                            type="button"
                             class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
+                            type="button"
                           >Change</button>
                         </span>
                       </div>
@@ -114,8 +97,8 @@
                     class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5"
                   >
                     <label
-                      for="cover_photo"
                       class="block text-sm leading-5 font-medium text-gray-700 sm:mt-px sm:pt-2"
+                      for="cover_photo"
                     >Cover photo</label>
                     <div class="mt-2 sm:mt-0 sm:col-span-2">
                       <div
@@ -124,22 +107,23 @@
                         <div class="text-center">
                           <svg
                             class="mx-auto h-12 w-12 text-gray-400"
-                            stroke="currentColor"
                             fill="none"
+                            stroke="currentColor"
                             viewBox="0 0 48 48"
                           >
                             <path
                               d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                              stroke-width="2"
                               stroke-linecap="round"
                               stroke-linejoin="round"
+                              stroke-width="2"
                             />
                           </svg>
                           <p class="mt-1 text-sm text-gray-600">
                             <button
-                              type="button"
                               class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition duration-150 ease-in-out"
-                            >Upload a file</button>
+                              type="button"
+                            >Upload a file
+                            </button>
                             or drag and drop
                           </p>
                           <p class="mt-1 text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
@@ -161,14 +145,14 @@
                     class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5"
                   >
                     <label
-                      for="first_name"
                       class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
+                      for="first_name"
                     >First name</label>
                     <div class="mt-1 sm:mt-0 sm:col-span-2">
                       <div class="max-w-xs rounded-md shadow-sm">
                         <input
-                          id="first_name"
                           class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                          id="first_name"
                         />
                       </div>
                     </div>
@@ -178,14 +162,14 @@
                     class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5"
                   >
                     <label
-                      for="last_name"
                       class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
+                      for="last_name"
                     >Last name</label>
                     <div class="mt-1 sm:mt-0 sm:col-span-2">
                       <div class="max-w-xs rounded-md shadow-sm">
                         <input
-                          id="last_name"
                           class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                          id="last_name"
                         />
                       </div>
                     </div>
@@ -195,15 +179,15 @@
                     class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5"
                   >
                     <label
-                      for="email"
                       class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
+                      for="email"
                     >Email address</label>
                     <div class="mt-1 sm:mt-0 sm:col-span-2">
                       <div class="max-w-lg rounded-md shadow-sm">
                         <input
+                          class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                           id="email"
                           type="email"
-                          class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         />
                       </div>
                     </div>
@@ -213,14 +197,14 @@
                     class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5"
                   >
                     <label
-                      for="country"
                       class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
+                      for="country"
                     >Country / Region</label>
                     <div class="mt-1 sm:mt-0 sm:col-span-2">
                       <div class="max-w-xs rounded-md shadow-sm">
                         <select
-                          id="country"
                           class="block form-select w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                          id="country"
                         >
                           <option>United States</option>
                           <option>Canada</option>
@@ -234,14 +218,14 @@
                     class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5"
                   >
                     <label
-                      for="street_address"
                       class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
+                      for="street_address"
                     >Street address</label>
                     <div class="mt-1 sm:mt-0 sm:col-span-2">
                       <div class="max-w-lg rounded-md shadow-sm">
                         <input
-                          id="street_address"
                           class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                          id="street_address"
                         />
                       </div>
                     </div>
@@ -251,14 +235,14 @@
                     class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5"
                   >
                     <label
-                      for="city"
                       class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
+                      for="city"
                     >City</label>
                     <div class="mt-1 sm:mt-0 sm:col-span-2">
                       <div class="max-w-xs rounded-md shadow-sm">
                         <input
-                          id="city"
                           class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                          id="city"
                         />
                       </div>
                     </div>
@@ -268,14 +252,14 @@
                     class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5"
                   >
                     <label
-                      for="state"
                       class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
+                      for="state"
                     >State / Province</label>
                     <div class="mt-1 sm:mt-0 sm:col-span-2">
                       <div class="max-w-xs rounded-md shadow-sm">
                         <input
-                          id="state"
                           class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                          id="state"
                         />
                       </div>
                     </div>
@@ -285,14 +269,14 @@
                     class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5"
                   >
                     <label
-                      for="zip"
                       class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
+                      for="zip"
                     >ZIP / Postal</label>
                     <div class="mt-1 sm:mt-0 sm:col-span-2">
                       <div class="max-w-xs rounded-md shadow-sm">
                         <input
-                          id="zip"
                           class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                          id="zip"
                         />
                       </div>
                     </div>
@@ -313,20 +297,21 @@
                         <div>
                           <legend
                             class="text-base leading-6 font-medium text-gray-900 sm:text-sm sm:leading-5 sm:text-gray-700"
-                          >By Email</legend>
+                          >By Email
+                          </legend>
                         </div>
                         <div class="mt-4 sm:mt-0 sm:col-span-2">
                           <div class="max-w-lg">
                             <div class="relative flex items-start">
                               <div class="absolute flex items-center h-5">
                                 <input
+                                  class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                   id="comments"
                                   type="checkbox"
-                                  class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                 />
                               </div>
                               <div class="pl-7 text-sm leading-5">
-                                <label for="comments" class="font-medium text-gray-700">Comments</label>
+                                <label class="font-medium text-gray-700" for="comments">Comments</label>
                                 <p
                                   class="text-gray-500"
                                 >Get notified when someones posts a comment on a posting.</p>
@@ -336,15 +321,15 @@
                               <div class="relative flex items-start">
                                 <div class="absolute flex items-center h-5">
                                   <input
+                                    class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                     id="candidates"
                                     type="checkbox"
-                                    class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                   />
                                 </div>
                                 <div class="pl-7 text-sm leading-5">
                                   <label
-                                    for="candidates"
                                     class="font-medium text-gray-700"
+                                    for="candidates"
                                   >Candidates</label>
                                   <p
                                     class="text-gray-500"
@@ -356,13 +341,13 @@
                               <div class="relative flex items-start">
                                 <div class="absolute flex items-center h-5">
                                   <input
+                                    class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                     id="offers"
                                     type="checkbox"
-                                    class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                   />
                                 </div>
                                 <div class="pl-7 text-sm leading-5">
-                                  <label for="offers" class="font-medium text-gray-700">Offers</label>
+                                  <label class="font-medium text-gray-700" for="offers">Offers</label>
                                   <p
                                     class="text-gray-500"
                                   >Get notified when a candidate accepts or rejects an offer.</p>
@@ -380,7 +365,8 @@
                         <div>
                           <legend
                             class="text-base leading-6 font-medium text-gray-900 sm:text-sm sm:leading-5 sm:text-gray-700"
-                          >Push Notifications</legend>
+                          >Push Notifications
+                          </legend>
                         </div>
                         <div class="sm:col-span-2">
                           <div class="max-w-lg">
@@ -390,12 +376,12 @@
                             <div class="mt-4">
                               <div class="flex items-center">
                                 <input
+                                  class="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                   id="push_everything"
                                   name="form-input push_notifications"
                                   type="radio"
-                                  class="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                 />
-                                <label for="push_everything" class="ml-3">
+                                <label class="ml-3" for="push_everything">
                                   <span
                                     class="block text-sm leading-5 font-medium text-gray-700"
                                   >Everything</span>
@@ -403,12 +389,12 @@
                               </div>
                               <div class="mt-4 flex items-center">
                                 <input
+                                  class="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                   id="push_email"
                                   name="form-input push_notifications"
                                   type="radio"
-                                  class="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                 />
-                                <label for="push_email" class="ml-3">
+                                <label class="ml-3" for="push_email">
                                   <span
                                     class="block text-sm leading-5 font-medium text-gray-700"
                                   >Same as email</span>
@@ -416,12 +402,12 @@
                               </div>
                               <div class="mt-4 flex items-center">
                                 <input
+                                  class="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                   id="push_nothing"
                                   name="form-input push_notifications"
                                   type="radio"
-                                  class="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                 />
-                                <label for="push_nothing" class="ml-3">
+                                <label class="ml-3" for="push_nothing">
                                   <span
                                     class="block text-sm leading-5 font-medium text-gray-700"
                                   >No push notifications</span>
@@ -440,14 +426,14 @@
               <div class="flex justify-end">
                 <span class="inline-flex rounded-md shadow-sm">
                   <button
-                    type="button"
                     class="py-2 px-4 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
+                    type="button"
                   >Cancel</button>
                 </span>
                 <span class="ml-3 inline-flex rounded-md shadow-sm">
                   <button
-                    type="submit"
                     class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+                    type="submit"
                   >Save</button>
                 </span>
               </div>
@@ -461,89 +447,94 @@
 </template>
 
 <script>
-import Map from "~/components/Map";
-import ImageUploader from "~/components/ImageUploader";
-import InsertMerchant from "~/services/InsertMerchant";
+    // import Map from "~/components/Map";
+    import ImageUploader from "~/components/ImageUploader";
+    import InsertMerchant from "~/services/InsertMerchant";
+    import BaseTextArea from "~/components/base/BaseTextArea";
 
-export default {
-  components: {
-    Map,
-    ImageUploader
-  },
-  data() {
-    return {
-      name: "",
-      location: "",
-      images: []
+    export default {
+        components: {
+            // Map,
+            ImageUploader,
+            BaseTextArea
+        },
+        data() {
+            return {
+                name: "",
+                location: "1,1",
+                images: [],
+                description: ""
+            };
+        },
+        computed: {
+            underscoreDelimitedName() {
+                return this.name
+                    .toLowerCase()
+                    .replace(/[.,\/#!$%\'^&\*;:{}=\-_`~()]/g, "")
+                    .replace(" ", "_");
+            },
+            userId() {
+                return this.$storage.getUniversal("user").uid;
+            },
+            merchantProfileBucketPath() {
+                return `${this.userId}/merchants/${this.underscoreDelimitedName}`;
+            }
+        },
+        methods: {
+            async handleForm(e) {
+                e.preventDefault();
+                const uploadSnapshots = await this.uploadImagesToFirebase();
+                const imageData = uploadSnapshots.map(snapshot => {
+                    return {
+                        name: snapshot.metadata.name,
+                        url: snapshot.metadata.fullPath,
+                        entity_type: "merchant"
+                    };
+                });
+
+                const idToken = this.$storage.getUniversal("accessToken");
+                const service = new InsertMerchant(
+                    idToken,
+                    this.name,
+                    this.location,
+                    imageData,
+                    this.description
+                );
+                const response = await service.process();
+                console.log(response)
+                const merchant_id = response.data.data.insert_merchants_one.id;
+                this.$router.push({name: "merchant-id", params: {id: merchant_id}})
+            },
+            async uploadImagesToFirebase() {
+                const ref = this.$fireStorage.ref();
+                // place all uploaded images in a subdirectory with path like this:
+                // 2zAOj9zJGZNVD2ykHeQtiJsgzCL2/merchants/my_store/image.jpg
+                // this is a reasonable approach since any user could create
+                // many merchant profiles
+                return Promise.all(
+                    this.images.map(image => {
+                        const namedRef = ref.child(
+                            `${this.merchantProfileBucketPath}/${image.name}`
+                        );
+                        return namedRef.put(image.file);
+                    })
+                );
+            },
+            handleMapSearchResult(event) {
+                // event data properties documentation:
+                // https://docs.mapbox.com/api/search/#geocoding-response-object
+                this.location = `${event.center[0]},${event.center[1]}`;
+            },
+            handleMapClick(event) {
+                // click event properties documentation:
+                // https://docs.mapbox.com/mapbox-gl-js/api/#mapmouseevent
+                this.location = `${event.lngLat.lng}, ${event.lngLat.lat}`;
+            },
+            handleImageUpload(event) {
+                this.images.push(event);
+            }
+        }
     };
-  },
-  computed: {
-    underscoreDelimitedName() {
-      return this.name
-        .toLowerCase()
-        .replace(/[.,\/#!$%\'^&\*;:{}=\-_`~()]/g, "")
-        .replace(" ", "_");
-    },
-    userId() {
-      return this.$storage.getUniversal("user").uid;
-    },
-    merchantProfileBucketPath() {
-      return `${this.userId}/merchants/${this.underscoreDelimitedName}`;
-    }
-  },
-  methods: {
-    async handleForm(e) {
-      e.preventDefault();
-      const uploadSnapshots = await this.uploadImagesToFirebase();
-      const imageData = uploadSnapshots.map(snapshot => {
-        return {
-          name: snapshot.metadata.name,
-          url: snapshot.metadata.fullPath,
-          entity_type: "merchant"
-        };
-      });
-
-      const idToken = this.$storage.getUniversal("accessToken");
-      const service = new InsertMerchant(
-        idToken,
-        this.name,
-        this.location,
-        imageData
-      );
-      const response = await service.process();
-      const merchant_id = response.data.data.insert_merchants_one.id;
-      this.$router.push({name: "merchant-id", params: {id: merchant_id}})
-    },
-    async uploadImagesToFirebase() {
-      const ref = this.$fireStorage.ref();
-      // place all uploaded images in a subdirectory with path like this:
-      // 2zAOj9zJGZNVD2ykHeQtiJsgzCL2/merchants/my_store/image.jpg
-      // this is a reasonable approach since any user could create
-      // many merchant profiles
-      return Promise.all(
-        this.images.map(image => {
-          const namedRef = ref.child(
-            `${this.merchantProfileBucketPath}/${image.name}`
-          );
-          return namedRef.put(image.file);
-        })
-      );
-    },
-    handleMapSearchResult(event) {
-      // event data properties documentation:
-      // https://docs.mapbox.com/api/search/#geocoding-response-object
-      this.location = `${event.center[0]},${event.center[1]}`;
-    },
-    handleMapClick(event) {
-      // click event properties documentation:
-      // https://docs.mapbox.com/mapbox-gl-js/api/#mapmouseevent
-      this.location = `${event.lngLat.lng}, ${event.lngLat.lat}`;
-    },
-    handleImageUpload(event) {
-      this.images.push(event);
-    }
-  }
-};
 </script>
 
 <style>
