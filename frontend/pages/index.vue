@@ -10,7 +10,7 @@
         <!-- Replace with your content -->
         <div class="px-4 py-4 sm:px-0">
           <div class="border-4 border-dashed border-gray-200 rounded-lg">
-            <div v-for="merchant in merchants" :key="merchant.id">
+            <div :key="merchant.id" v-for="merchant in merchants">
               <pre> {{ JSON.stringify(merchant, null, 4) }} </pre>
               <nuxt-link :to="{ name: 'merchant-id', params: { id: merchant.id }}">
                 Merchant Profile
@@ -25,29 +25,35 @@
 </template>
 
 <script>
-import SelectAllMerchant from "~/services/SelectAllMerchants";
+    import SelectAllMerchant from "~/services/SelectAllMerchants";
 
-export default {
-  async asyncData(context) {
-    let accessToken;
-    const { app, params } = context;
-    if (process.server) {
-      const { req, res, beforeNuxtRender } = context;
-      accessToken = req.cookies["loka-accessToken"];
-    } else {
-      accessToken = app.$storage.getUniversal("accessToken");
-    }
+    export default {
+        async asyncData(context) {
+            let accessToken;
+            const {app, params} = context;
+            if (process.server) {
+                const {req, res, beforeNuxtRender} = context;
+                accessToken = req.cookies["loka-accessToken"];
+            } else {
+                accessToken = app.$storage.getUniversal("accessToken");
+            }
 
-    const service = new SelectAllMerchant(accessToken);
-    const response = await service.process();
-    return { merchants: response.data.data.merchants }
-  },
-  computed: {
-    data(){
-      return {
-        merchants: []
-      }
-    }
-  }
-};
+            const service = new SelectAllMerchant(accessToken);
+
+            try {
+                const response = await service.process();
+                return {merchants: response.data.data.merchants}
+            } catch (err) {
+                console.log(err);
+                return {merchants: []}; // TypeError: failed to fetch
+            }
+        },
+        computed: {
+            data() {
+                return {
+                    merchants: []
+                }
+            }
+        }
+    };
 </script>
