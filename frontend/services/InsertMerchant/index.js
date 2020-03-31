@@ -5,11 +5,11 @@ export default class InsertMerchant {
   constructor(
     idToken,
     name, location, images, description) {
-      this.idToken = idToken
-      this.name = name
-      this.location = location
-      this.images = images
-      this.description = description
+    this.idToken = idToken
+    this.name = name
+    this.location = location
+    this.images = images
+    this.description = description
 
   }
 
@@ -25,13 +25,11 @@ export default class InsertMerchant {
       data: {
         query: query,
         variables: {
-          object: {
-            name: this.name,
-            location: this.location,
-            description: this.description,
-            assets: {
-              data: this.images
-            }
+          name: this.name,
+          location: this.location,
+          description: this.description,
+          assets: {
+            data: this.images
           }
         }
       }
