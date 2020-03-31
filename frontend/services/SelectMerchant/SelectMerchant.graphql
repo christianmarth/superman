@@ -1,10 +1,14 @@
 query SelectMerchant($id: Int!) {
-  merchants_by_pk(id: $id){
+  merchants_by_pk(id: $id) {
     assets {
       url
     }
     location
     name
     description
+    products {
+      id
+      name
+    }
   }
 }
