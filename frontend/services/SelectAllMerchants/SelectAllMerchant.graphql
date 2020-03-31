@@ -1,5 +1,5 @@
 query SelectAllMerchants {
-  merchants {
+  merchants(where: {assets: {_not: {url: {_is_null: true}}}}) {
     assets(limit: 1) {
       url
     }
