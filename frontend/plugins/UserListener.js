@@ -3,6 +3,8 @@
 
 export default ({ app }) => {
     app.$storage.syncUniversal("accessToken")
+    app.$axios.setBaseURL(process.server ? process.env.API_URL_SSR : process.env.API_URL)
+    app.$axios.setToken(app.$storage.getUniversal('accessToken'), 'Bearer')
 
     app.$fireAuth.onAuthStateChanged(user => {
         if (user) {
@@ -18,7 +20,7 @@ export default ({ app }) => {
                 "accessToken",
                 user.stsTokenManager.accessToken
             );
-        } else {    
+        } else {
             // No user is signed in.
             app.$storage.setState("loggedIn", false)
             app.$storage.setLocalStorage("loggedIn", false)
