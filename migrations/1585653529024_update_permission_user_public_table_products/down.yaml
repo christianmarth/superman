@@ -1,0 +1,30 @@
+- args:
+    role: user
+    table:
+      name: products
+      schema: public
+  type: drop_insert_permission
+- args:
+    permission:
+      check:
+        merchant:
+          user_id:
+            _eq: X-Hasura-User-Id
+      columns:
+      - asset_id
+      - description
+      - merchant_id
+      - name
+      - price
+      localPresets:
+      - key: merchant_id
+        value: ""
+      - key: ""
+        value: ""
+      set:
+        merchant_id: ""
+    role: user
+    table:
+      name: products
+      schema: public
+  type: create_insert_permission
