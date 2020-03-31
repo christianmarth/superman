@@ -10,7 +10,7 @@
 import SelectMerchant from "~/services/SelectMerchant";
 
 export default {
-  async middleware(context) {
+  async asyncData(context) {
     let accessToken;
     const { app, params } = context;
     if (process.server) {
@@ -22,13 +22,21 @@ export default {
 
     const id = params.id;
     const service = new SelectMerchant(accessToken, id);
-    const response = await service.process();
-    app.$storage.setState("merchant", response.data.data.merchants_by_pk);
-  },
-  computed: {
-    merchant() {
-      return this.$storage.getState("merchant");
+    try {
+        const response = await service.process();
+        console.log(response.data)
+        return {merchant: response.data.data.merchants_by_pk};
+    } catch(e){
+        console.log(e)
+        console.log("Either not logged in or no merchant found")
+        context.redirect('/')
     }
+    
+  },
+  data(){
+      return {
+          merchant: {}
+      }
   }
 };
 </script>
