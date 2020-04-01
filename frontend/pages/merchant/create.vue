@@ -46,7 +46,7 @@
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                       <div class="max-w-4xl mx-auto">
                         <client-only>
-<!--                          <Map @mapClick="handleMapClick" @searchResult="handleMapSearchResult"/>-->
+                          <!--                          <Map @mapClick="handleMapClick" @searchResult="handleMapSearchResult"/>-->
                         </client-only>
                       </div>
                     </div>
@@ -56,13 +56,12 @@
                       class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2"
                       for="about"
                     >Upload images of your business</label>
-                    <ImageUploader @upload-image-loaded="handleImageUpload"/>
+                    <ImageUploader @upload-image-loaded="handleImageUpload" />
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                       <div class="max-w-4xl mx-auto"></div>
                     </div>
                   </div>
-                  <BaseTextArea
-                    v-model="description"  />
+                  <BaseTextArea v-model="description" />
                   <div
                     class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-center sm:border-t sm:border-gray-200 sm:pt-5"
                   >
@@ -122,8 +121,7 @@
                             <button
                               class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition duration-150 ease-in-out"
                               type="button"
-                            >Upload a file
-                            </button>
+                            >Upload a file</button>
                             or drag and drop
                           </p>
                           <p class="mt-1 text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
@@ -297,8 +295,7 @@
                         <div>
                           <legend
                             class="text-base leading-6 font-medium text-gray-900 sm:text-sm sm:leading-5 sm:text-gray-700"
-                          >By Email
-                          </legend>
+                          >By Email</legend>
                         </div>
                         <div class="mt-4 sm:mt-0 sm:col-span-2">
                           <div class="max-w-lg">
@@ -365,8 +362,7 @@
                         <div>
                           <legend
                             class="text-base leading-6 font-medium text-gray-900 sm:text-sm sm:leading-5 sm:text-gray-700"
-                          >Push Notifications
-                          </legend>
+                          >Push Notifications</legend>
                         </div>
                         <div class="sm:col-span-2">
                           <div class="max-w-lg">
@@ -447,94 +443,100 @@
 </template>
 
 <script>
-    // import Map from "~/components/Map";
-    import ImageUploader from "~/components/ImageUploader";
-    import InsertMerchant from "~/services/InsertMerchant";
-    import BaseTextArea from "~/components/base/BaseTextArea";
+// import Map from "~/components/Map";
+import ImageUploader from "~/components/ImageUploader";
+import InsertMerchant from "~/services/InsertMerchant";
+import query from "~/services/InsertMerchant/InsertMerchant.graphql";
+import BaseTextArea from "~/components/base/BaseTextArea";
 
-    export default {
-        components: {
-            // Map,
-            ImageUploader,
-            BaseTextArea
-        },
-        data() {
-            return {
-                name: "",
-                location: "1,1",
-                images: [],
-                description: ""
-            };
-        },
-        computed: {
-            underscoreDelimitedName() {
-                return this.name
-                    .toLowerCase()
-                    .replace(/[.,\/#!$%\'^&\*;:{}=\-_`~()]/g, "")
-                    .replace(" ", "_");
-            },
-            userId() {
-                return this.$storage.getUniversal("user").uid;
-            },
-            merchantProfileBucketPath() {
-                return `${this.userId}/merchants/${this.underscoreDelimitedName}`;
-            }
-        },
-        methods: {
-            async handleForm(e) {
-                e.preventDefault();
-                const uploadSnapshots = await this.uploadImagesToFirebase();
-                const imageData = uploadSnapshots.map(snapshot => {
-                    return {
-                        name: snapshot.metadata.name,
-                        url: snapshot.metadata.fullPath,
-                        entity_type: "merchant"
-                    };
-                });
-
-                const idToken = this.$storage.getUniversal("accessToken");
-                const service = new InsertMerchant(
-                    idToken,
-                    this.name,
-                    this.location,
-                    imageData,
-                    this.description
-                );
-                const response = await service.process();
-                console.log(response)
-                const merchant_id = response.data.data.insert_merchants_one.id;
-                this.$router.push({name: "merchant-id", params: {id: merchant_id}})
-            },
-            async uploadImagesToFirebase() {
-                const ref = this.$fireStorage.ref();
-                // place all uploaded images in a subdirectory with path like this:
-                // 2zAOj9zJGZNVD2ykHeQtiJsgzCL2/merchants/my_store/image.jpg
-                // this is a reasonable approach since any user could create
-                // many merchant profiles
-                return Promise.all(
-                    this.images.map(image => {
-                        const namedRef = ref.child(
-                            `${this.merchantProfileBucketPath}/${image.name}`
-                        );
-                        return namedRef.put(image.file);
-                    })
-                );
-            },
-            handleMapSearchResult(event) {
-                // event data properties documentation:
-                // https://docs.mapbox.com/api/search/#geocoding-response-object
-                this.location = `${event.center[0]},${event.center[1]}`;
-            },
-            handleMapClick(event) {
-                // click event properties documentation:
-                // https://docs.mapbox.com/mapbox-gl-js/api/#mapmouseevent
-                this.location = `${event.lngLat.lng}, ${event.lngLat.lat}`;
-            },
-            handleImageUpload(event) {
-                this.images.push(event);
-            }
-        }
+export default {
+  components: {
+    // Map,
+    ImageUploader,
+    BaseTextArea
+  },
+  data() {
+    return {
+      name: "",
+      location: "1,1",
+      images: [],
+      description: ""
     };
+  },
+  computed: {
+    underscoreDelimitedName() {
+      return this.name
+        .toLowerCase()
+        .replace(/[.,\/#!$%\'^&\*;:{}=\-_`~()]/g, "")
+        .replace(" ", "_");
+    },
+    userId() {
+      return this.$storage.getUniversal("user").uid;
+    },
+    merchantProfileBucketPath() {
+      return `${this.userId}/merchants/${this.underscoreDelimitedName}`;
+    }
+  },
+  methods: {
+    async handleForm(e) {
+      e.preventDefault();
+      try {
+        const assets = await this.uploadImagesToFirebase();
+        console.log(assets);
+        const response = await this.$axios.post(process.env.API_PATH, {
+          query: query,
+          variables: {
+            name: this.name,
+            description: this.description,
+            location: this.location,
+            assets: { data: assets }
+          }
+        });
+
+        const merchant_id = response.data.data.insert_merchants_one.id;
+        this.$router.push({ name: "merchant-id", params: { id: merchant_id } });
+      } catch (e) {
+        console.error("Merchant Creation Failed", this);
+        console.log(e);
+      }
+    },
+    async uploadImagesToFirebase() {
+      const ref = this.$fireStorage.ref();
+      // place all uploaded images in a subdirectory with path like this:
+      // 2zAOj9zJGZNVD2ykHeQtiJsgzCL2/merchants/my_store/image.jpg
+      // this is a reasonable approach since any user could create
+      // many merchant profiles
+      return Promise.all(
+        this.images.map(async image => {
+          const namedRef = ref.child(
+            `${this.merchantProfileBucketPath}/${image.name}`
+          );
+          const snapshot = await namedRef.put(image.file);
+          const url = await namedRef.getDownloadURL();
+          return {
+            name: snapshot.metadata.name,
+            bucket_path: snapshot.metadata.fullPath,
+            url: url,
+            entity_type: "merchant"
+          };
+        })
+      );
+    },
+    handleMapSearchResult(event) {
+      // event data properties documentation:
+      // https://docs.mapbox.com/api/search/#geocoding-response-object
+      this.location = `${event.center[0]},${event.center[1]}`;
+    },
+    handleMapClick(event) {
+      // click event properties documentation:
+      // https://docs.mapbox.com/mapbox-gl-js/api/#mapmouseevent
+      this.location = `${event.lngLat.lng}, ${event.lngLat.lat}`;
+    },
+    handleImageUpload(event) {
+      this.images.push(event);
+    }
+  }
+};
 </script>
 
 <style>

@@ -11,12 +11,12 @@
     <div class="relative max-w-7xl mx-auto">
       <div class="mt-12 grid gap-5 max-w-lg mx-auto lg:grid-cols-4 lg:max-w-none">
         <div
-          v-for="(merchant, index) in merchants"
+          v-for="merchant in merchants"
           :key="merchant.id"
           class="flex flex-col rounded-lg shadow-lg overflow-hidden"
         >
           <div class="flex-shrink-0">
-            <img class="h-48 w-full object-cover" :src="urls[index]" alt />
+            <img class="h-48 w-full object-cover" :src="merchant.assets[0].url" alt />
           </div>
           <div class="flex-1 bg-white p-6 flex flex-col justify-between">
             <div class="flex-1">
@@ -101,15 +101,6 @@ export default {
       merchants: [],
       urls: []
     };
-  },
-  created() {
-    Promise.all(
-      this.merchants.map(merchant => {
-        return this.fetchFirebaseAsset(merchant.assets[0].url);
-      })
-    ).then(urls => {
-      this.urls = urls;
-    });
   },
   methods: {
     async fetchFirebaseAsset(path) {
