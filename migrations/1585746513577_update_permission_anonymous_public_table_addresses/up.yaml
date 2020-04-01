@@ -1,0 +1,19 @@
+- args:
+    permission:
+      allow_aggregations: false
+      columns:
+      - city
+      - country
+      - num
+      - postcode
+      - state
+      - street
+      - street_opt
+      computed_fields: []
+      filter: {}
+      limit: null
+    role: anonymous
+    table:
+      name: addresses
+      schema: public
+  type: create_select_permission

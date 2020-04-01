@@ -1,0 +1,23 @@
+- args:
+    role: anonymous
+    table:
+      name: merchants
+      schema: public
+  type: drop_select_permission
+- args:
+    permission:
+      allow_aggregations: false
+      columns:
+      - description
+      - id
+      - location
+      - name
+      - phone_number
+      - website
+      computed_fields: []
+      filter: {}
+    role: anonymous
+    table:
+      name: merchants
+      schema: public
+  type: create_select_permission

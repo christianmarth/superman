@@ -1,0 +1,21 @@
+- args:
+    permission:
+      allow_upsert: true
+      check: {}
+      columns:
+      - city
+      - country
+      - num
+      - postcode
+      - state
+      - street
+      - street_opt
+      localPresets:
+      - key: ""
+        value: ""
+      set: {}
+    role: user
+    table:
+      name: addresses
+      schema: public
+  type: create_insert_permission
