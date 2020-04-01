@@ -11,10 +11,6 @@ export default {
           path: "/"
         },
         {
-          name: "Login",
-          path: "/login"
-        },
-        {
           name: "Create Merchant",
           path: "/merchant/create"
         },

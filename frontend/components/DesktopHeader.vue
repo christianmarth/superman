@@ -22,7 +22,7 @@
           </div>
         </div>
 
-        <div class="flex items-center md:ml-6">
+        <div class="flex items-center md:ml-6" v-if="loggedIn">
           <!-- Bell Button -->
           <button
             class="p-1 border-2 border-transparent text-indigo-300 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-indigo-600"
@@ -82,6 +82,11 @@
             <!-- Dropdown Menu End -->
           </div>
         </div>
+        <nuxt-link
+          v-else=""
+          :to="`/login`"
+          class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-indigo-200 hover:text-white hover:bg-indigo-600 focus:outline-none focus:text-white focus:bg-indigo-600"
+        >Login</nuxt-link>
       </div>
     </div>
   </nav>

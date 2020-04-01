@@ -46,7 +46,8 @@
           >{{link.name}}</nuxt-link>
         </div>
         <!-- `loggedIn` computed property set on the ./HeaderMixin -->
-        <div v-if="loggedIn" class="pt-4 pb-3 border-t border-gray-700">
+        <div class="border-t border-gray-700 pb-3 px-2">
+        <div v-if="loggedIn" class="pt-4">
           <div class="flex items-center px-5">
             <div class="flex-shrink-0">
               <img
@@ -72,11 +73,18 @@
               class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-indigo-300 hover:text-white hover:bg-indigo-600 focus:outline-none focus:text-white focus:bg-indigo-600"
             >Settings</a>
             <a
+              @click="logout"
               href="#"
               class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-indigo-300 hover:text-white hover:bg-indigo-600 focus:outline-none focus:text-white focus:bg-indigo-600"
             >Sign out</a>
           </div>
         </div>
+        <nuxt-link
+            v-else=""
+            :to="`/login`"
+            class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-indigo-200 hover:text-white hover:bg-indigo-600 focus:outline-none focus:text-white focus:bg-indigo-600"
+          >Login</nuxt-link>
+          </div>
       </div>
     </div>
   </nav>
