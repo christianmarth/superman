@@ -12,8 +12,8 @@
           <input
             class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
             :id="FormInputClassId"
-            v-model="firstName"
-            @input='$emit("input", firstName )'
+            v-model="inputValue"
+            @input='$emit("input", inputValue)'
           />
         </div>
       </div>
@@ -33,7 +33,9 @@
                 default: ""
             },
             data(){
-                firstName: ""
+                return{
+                inputValue: ""
+                }
             }
         }
     }
