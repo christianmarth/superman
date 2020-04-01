@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-indigo-700">
+  <nav class="bg-green-500">
     <div class="max-w-7xl mx-auto px-4 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
@@ -8,15 +8,11 @@
           </div>
           <div class="hidden md:block w-full">
             <div class="ml-10 flex items-baseline justify-end">
-              <a
-                href="#"
-                class="px-3 py-2 rounded-md text-sm font-medium text-white bg-indigo-800 focus:outline-none focus:text-white focus:bg-indigo-600"
-              >Dashboard</a>
               <nuxt-link
                 v-for="link in links"
                 :key="link.name"
                 :to="link.path"
-                class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-indigo-200 hover:text-white hover:bg-indigo-600 focus:outline-none focus:text-white focus:bg-indigo-600"
+                class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-indigo-200 hover:text-white hover:bg-green-400 focus:outline-none focus:text-white focus:bg-green-400"
               >{{ link.name }}</nuxt-link>
             </div>
           </div>
@@ -25,7 +21,7 @@
         <div class="flex items-center md:ml-6" v-if="loggedIn">
           <!-- Bell Button -->
           <button
-            class="p-1 border-2 border-transparent text-indigo-300 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-indigo-600"
+            class="p-1 border-2 border-transparent text-indigo-300 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-green-400"
           >
             <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
               <path
@@ -85,7 +81,7 @@
         <nuxt-link
           v-else=""
           :to="`/login`"
-          class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-indigo-200 hover:text-white hover:bg-indigo-600 focus:outline-none focus:text-white focus:bg-indigo-600"
+          class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-indigo-200 hover:text-white hover:bg-green-400 focus:outline-none focus:text-white focus:bg-green-400"
         >Login</nuxt-link>
       </div>
     </div>

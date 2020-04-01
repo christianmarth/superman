@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-indigo-700" v-on-clickaway="away">
+  <nav class="bg-green-500" v-on-clickaway="away">
     <div class="max-w-7xl mx-auto px-4">
       <div class="flex items-center justify-between h-16">
         <!-- Full Screen Menu -->
@@ -12,7 +12,7 @@
         <div class="-mr-2 flex">
           <button
             @click="mobileMenuToggle = !mobileMenuToggle"
-            class="inline-flex items-center justify-center p-2 rounded-md text-indigo-300 hover:text-white hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600 focus:text-white"
+            class="inline-flex items-center justify-center p-2 rounded-md text-indigo-300 hover:text-white hover:bg-green-400 focus:outline-none focus:bg-green-400 focus:text-white"
           >
             <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
               <path
@@ -42,7 +42,7 @@
             v-for="link in links"
             :key="link.name"
             :to="link.path"
-            class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-indigo-200 hover:text-white hover:bg-indigo-600 focus:outline-none focus:text-white focus:bg-indigo-600"
+            class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-indigo-200 hover:text-white hover:bg-green-400 focus:outline-none focus:text-white focus:bg-green-400"
           >{{link.name}}</nuxt-link>
         </div>
         <!-- `loggedIn` computed property set on the ./HeaderMixin -->
@@ -66,23 +66,23 @@
           <div class="mt-3 px-2">
             <nuxt-link
               :to="{name: 'user-profile'}"
-              class="block px-3 py-2 rounded-md text-base font-medium text-indigo-300 hover:text-white hover:bg-indigo-600 focus:outline-none focus:text-white focus:bg-indigo-600"
+              class="block px-3 py-2 rounded-md text-base font-medium text-indigo-300 hover:text-white hover:bg-green-400 focus:outline-none focus:text-white focus:bg-green-400"
             >Your Profile</nuxt-link>
             <a
               href="#"
-              class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-indigo-300 hover:text-white hover:bg-indigo-600 focus:outline-none focus:text-white focus:bg-indigo-600"
+              class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-indigo-300 hover:text-white hover:bg-green-400 focus:outline-none focus:text-white focus:bg-green-400"
             >Settings</a>
             <a
               @click="logout"
               href="#"
-              class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-indigo-300 hover:text-white hover:bg-indigo-600 focus:outline-none focus:text-white focus:bg-indigo-600"
+              class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-indigo-300 hover:text-white hover:bg-green-400 focus:outline-none focus:text-white focus:bg-green-400"
             >Sign out</a>
           </div>
         </div>
         <nuxt-link
             v-else=""
             :to="`/login`"
-            class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-indigo-200 hover:text-white hover:bg-indigo-600 focus:outline-none focus:text-white focus:bg-indigo-600"
+            class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-indigo-200 hover:text-white hover:bg-green-400 focus:outline-none focus:text-white focus:bg-green-400"
           >Login</nuxt-link>
           </div>
       </div>

@@ -36,7 +36,7 @@
       <p class="mt-1 text-sm text-gray-600">
         <button
           type="button"
-          class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition duration-150 ease-in-out"
+          class="font-medium text-green-400 hover:text-indigo-500 focus:outline-none focus:underline transition duration-150 ease-in-out"
         >Upload a file</button>
         or drag and drop
       </p>
