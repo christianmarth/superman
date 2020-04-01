@@ -101,27 +101,6 @@
 <script>
 import InsertUser from "~/services/InsertUser";
 export default {
-  mounted() {
-    this.$fireAuth
-      .getRedirectResult()
-      .then(results => {
-        // Firebase auth response object, additional properties include:
-        // result = {user: {…}, credential: {…}, additionalUserInfo: {…}, operationType: "signIn"}
-        const user = JSON.parse(JSON.stringify(results.user));
-        const accessToken = user.stsTokenManager.accessToken;
-        const uid = user.uid;
-        const displayName = user.displayName;
-        const email = user.email;
-        const photoURL = user.photoURL;
-        this.insertUser(accessToken, uid, displayName, email, photoURL);
-      })
-      .catch(error => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        var email = error.email;
-        var credential = error.credential;
-      });
-  },
   methods: {
     loginWithGoogle() {
       const provider = new this.$fireAuthObj.GoogleAuthProvider();

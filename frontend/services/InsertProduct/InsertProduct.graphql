@@ -1,0 +1,19 @@
+mutation InsertProduct(
+	$name: String!
+	$merchant_id: Int!
+	$price: money
+	$description: String
+	$asset_id: Int
+) {
+	insert_products_one(
+		object: {
+			name: $name
+			merchant_id: $merchant_id
+			price: $price
+			description: $description
+			asset_id: $asset_id
+		}
+	) {
+		id
+	}
+}

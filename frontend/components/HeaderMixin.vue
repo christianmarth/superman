@@ -17,6 +17,10 @@ export default {
         {
           name: "Create Merchant",
           path: "/merchant/create"
+        },
+        {
+          name: "Products",
+          path: "/products"
         }
       ],
       mobileMenuToggle: false

@@ -1,16 +1,16 @@
 import axios from 'axios'
-import query from './InsertMerchant.graphql'
+import query from './InsertProduct.graphql'
 
-export default class InsertMerchant {
+export default class InsertProduct {
   constructor(
     idToken,
-    name, location, images, description) {
+    name, merchant_id, price, description, asset_id) {
     this.idToken = idToken
     this.name = name
-    this.location = location
-    this.images = images
+    this.merchant_id = merchant_id
+    this.price = price
     this.description = description
-
+    this.asset_id = asset_id
   }
 
   async process() {
@@ -26,11 +26,10 @@ export default class InsertMerchant {
         query: query,
         variables: {
           name: this.name,
-          location: this.location,
+          merchant_id: this.merchant_id,
+          price: this.price,
           description: this.description,
-          assets: {
-            data: this.images
-          }
+          asset_id: this.asset_id
         }
       }
     });

@@ -1,0 +1,14 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: CREATE TABLE "public"."products"("id" bigserial NOT NULL, "merchant_id" integer
+      NOT NULL, "name" text NOT NULL, "price" money NOT NULL, "description" text,
+      "asset_id" integer, PRIMARY KEY ("id") , FOREIGN KEY ("merchant_id") REFERENCES
+      "public"."merchants"("id") ON UPDATE restrict ON DELETE restrict, FOREIGN KEY
+      ("asset_id") REFERENCES "public"."assets"("id") ON UPDATE restrict ON DELETE
+      restrict);
+  type: run_sql
+- args:
+    name: products
+    schema: public
+  type: add_existing_table_or_view

@@ -1,0 +1,23 @@
+- args:
+    role: anonymous
+    table:
+      name: products
+      schema: public
+  type: drop_select_permission
+- args:
+    permission:
+      allow_aggregations: false
+      columns:
+      - asset_id
+      - description
+      - id
+      - merchant_id
+      - name
+      - price
+      computed_fields: []
+      filter: {}
+    role: anonymous
+    table:
+      name: products
+      schema: public
+  type: create_select_permission

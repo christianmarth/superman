@@ -31,7 +31,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/UserListener', mode: 'client' }
+    '~/plugins/UserListener'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -92,6 +92,9 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    headers: {
+      "content-type": "application/json"
+    },
   },
   /*
   ** Build configuration

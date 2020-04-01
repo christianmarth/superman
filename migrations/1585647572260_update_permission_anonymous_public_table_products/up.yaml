@@ -1,0 +1,19 @@
+- args:
+    permission:
+      allow_upsert: true
+      check: {}
+      columns:
+      - asset_id
+      - description
+      - merchant_id
+      - name
+      - price
+      localPresets:
+      - key: ""
+        value: ""
+      set: {}
+    role: anonymous
+    table:
+      name: products
+      schema: public
+  type: create_insert_permission

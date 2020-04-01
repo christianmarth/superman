@@ -1,0 +1,17 @@
+- args:
+    permission:
+      allow_aggregations: false
+      columns:
+      - asset_id
+      - description
+      - merchant_id
+      - name
+      - price
+      computed_fields: []
+      filter: {}
+      limit: null
+    role: user
+    table:
+      name: products
+      schema: public
+  type: create_select_permission
