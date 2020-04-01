@@ -1,17 +1,5 @@
-mutation InsertMerchant(
-	$name: String!
-	$location: point
-	$assets: assets_arr_rel_insert_input
-	$description: String
-) {
-	insert_merchants_one(
-		object: {
-			name: $name
-			location: $location
-			assets: $assets
-			description: $description
-		}
-	) {
-		id
-	}
+mutation InsertMerchant($object: merchants_insert_input!) {
+  insert_merchants_one(object: $object) {
+    id
+  }
 }

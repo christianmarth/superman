@@ -1,7 +1,7 @@
 <script>
 export default {
   methods: {
-    async uploadImagesToFirebase() {
+    async uploadImagesToFirebase(entity_type) {
       const ref = this.$fireStorage.ref();
       // place all uploaded images in a subdirectory with path like this:
       // 2zAOj9zJGZNVD2ykHeQtiJsgzCL2/merchants/my_store/image.jpg
@@ -18,7 +18,7 @@ export default {
             name: snapshot.metadata.name,
             bucket_path: snapshot.metadata.fullPath,
             url: url,
-            entity_type: "merchant"
+            entity_type: entity_type
           };
         })
       );

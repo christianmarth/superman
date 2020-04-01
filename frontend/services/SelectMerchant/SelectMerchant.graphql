@@ -6,6 +6,8 @@ query SelectMerchant($id: Int!) {
     location
     name
     description
+    email
+    phone_number
     products {
       id
       name
