@@ -42,8 +42,8 @@
 
           <!-- `loggedIn` computed property set on the ./HeaderMixin -->
           <div v-if="loggedIn" class="relative" v-on-clickaway="away">
-            <!-- 
-              Relatively positioned so the absolutely positioned floating menu has something 
+            <!--
+              Relatively positioned so the absolutely positioned floating menu has something
               (other than the window) to anchor to.
             -->
             <button
@@ -76,7 +76,7 @@
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >Your Profile</nuxt-link>
                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" @click="logout">Sign out</a>
               </div>
             </div>
             <!-- Dropdown Menu End -->

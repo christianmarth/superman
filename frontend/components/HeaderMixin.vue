@@ -35,6 +35,11 @@ export default {
     away() {
       this.mobileMenuToggle = false;
     },
+    logout() {
+      this.$fireAuth.signOut().then( _ => {
+        this.$router.push("/");
+      } )
+    }
   }
 };
 </script>
