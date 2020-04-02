@@ -7,10 +7,6 @@ export default {
     return {
       links: [
         {
-          name: "Home",
-          path: "/"
-        },
-        {
           name: "Create Merchant",
           path: "/merchant/create"
         },
