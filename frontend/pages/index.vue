@@ -2,9 +2,15 @@
   <div>
     <BaseHero />
     <main>
-      <BaseSection>
+      <BaseColumnSection>
         <BaseCard v-for="merchant in merchants" :key="merchant.id" :img="merchant.assets[0].url" :title="merchant.name" :titleLink="'/merchant/'+merchant.id" :body="merchant.description" />
-      </BaseSection>
+      </BaseColumnSection>
+      <BaseColumnSection
+      :number-of-columns="6"
+      :column-gap="false">
+        <BaseTile v-for="x in 12">
+        </BaseTile>
+      </BaseColumnSection>
       <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <!-- Replace with your content -->
         <div class="px-4 py-4 sm:px-0">
@@ -25,13 +31,15 @@
 import query from "~/services/SelectAllMerchants/SelectAllMerchant.graphql";
 import BaseHero from "~/components/base/BaseHero";
 import BaseCard from "~/components/base/BaseCard";
-import BaseSection from "../components/base/BaseSection";
+import BaseTile from "~/components/base/BaseTile";
+import BaseColumnSection from "../components/base/BaseColumnSection";
 
 export default {
   components: {
     BaseHero,
     BaseCard,
-    BaseSection
+    BaseTile,
+    BaseColumnSection
   },
   async asyncData({ app }) {
     try {

@@ -1,10 +1,12 @@
 <template>
-  <nav class="bg-green-500">
+  <nav class="bg-green-500" style="background: linear-gradient(90deg, rgba(255,255,255,1) 20%, rgba(45, 180, 111,1) 20%, rgb(45, 180, 111) 111%, rgba(0,212,255,1) 100%);">
     <div class="max-w-7xl mx-auto px-4 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
           <div class="flex-shrink-0">
-            <img class="h-8 w-8" src="/loka_logo.jpeg" alt />
+           <nuxt-link :to="`/`">
+              <img class="h-8" src="/loka_logo.jpeg" alt />
+            </nuxt-link>
           </div>
           <div class="hidden md:block w-full">
             <div class="ml-10 flex items-baseline justify-end">
