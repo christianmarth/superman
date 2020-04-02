@@ -5,7 +5,9 @@
         <!-- Full Screen Menu -->
         <div class="flex items-center w-full">
           <div class="flex-shrink-0">
-            <img class="h-8 w-8" src="/loka_logo.jpeg" alt />
+            <nuxt-link :to="`/`">
+              <img class="h-8 w-8" src="/loka_logo.jpeg" alt />
+            </nuxt-link>
           </div>
         </div>
         <!-- Mobile Menu -->

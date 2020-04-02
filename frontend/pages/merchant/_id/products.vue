@@ -10,7 +10,7 @@ const query = `
       name
       merchant_id
       description
-      asset {
+      assets {
         url
         name
       }
