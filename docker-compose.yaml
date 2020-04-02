@@ -8,27 +8,9 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - web
-    volumes:
-      - ./frontend:/frontend
-  web:
-    build: 
-      context: ./backend
-      dockerfile: ./backendDockerfile
-    environment:
-      PGUSER: postgres
-      PGPASSWORD: postgres
-      PGDATABASE: postgres
-      PGPORT: 5432
-      PGHOST: db
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
       - graphql-engine
     volumes:
-      - ./backend:/backend
-    command: ["./wait-for-it.sh", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+      - ./frontend:/frontend
   db:
     image: "postgis/postgis"
     environment:
@@ -49,19 +31,6 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
-  # es:
-  #   image: "docker.elastic.co/elasticsearch/elasticsearch:7.6.1"
-  #   environment:
-  #     - discovery.type=single-node
-  #   ports:
-  #     - "9200:9200"
-  #     - "9300:9300"
-  # kibana:
-  #   image: "docker.elastic.co/kibana/kibana:7.6.1"
-  #   ports:
-  #     - "5601:5601"
-  #   environment:
-  #     ELASTICSEARCH_HOSTS: "http://es:9200/"
   graphql-engine:
       image: hasura/graphql-engine:v1.2.0-beta.2
       ports:
