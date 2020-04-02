@@ -1,5 +1,5 @@
 <template>
-  <div class="relative bg-gray-50 overflow-hidden">
+  <div class="relative bg-gray-50 overflow-hidden" :style="background">
     <div class="relative pt-6 pb-12 sm:pb-16 md:pb-20 lg:pb-28 xl:pb-32">
       <div class="mt-10 mx-auto max-w-screen-xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 xl:mt-28">
         <div class="text-center">
@@ -30,5 +30,13 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  computed: {
+    background(){
+      return {
+        background: 'no-repeat center/100% url("https://static.asiawebdirect.com/m/kl/portals/langkawi-info-com/homepage/events/ramadan-in-langkawi/pagePropertiesImage/ramadan-langkawi.jpg")'
+      }
+    }
+  }
+};
 </script>
