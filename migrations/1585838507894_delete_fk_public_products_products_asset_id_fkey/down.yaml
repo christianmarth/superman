@@ -1,0 +1,6 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: alter table "public"."products" add foreign key ("asset_id") references "public"."assets"("id")
+      on update restrict on delete restrict;
+  type: run_sql

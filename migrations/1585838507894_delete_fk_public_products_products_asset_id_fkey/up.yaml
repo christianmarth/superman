@@ -1,0 +1,5 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: alter table "public"."products" drop constraint "products_asset_id_fkey";
+  type: run_sql
